@@ -14,7 +14,7 @@
             margin: 0;
             background-color: #fce4ec;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden; /* Prevents scrollbars when button moves */
+            overflow: hidden;
         }
 
         .card {
@@ -43,6 +43,7 @@
         .btn-container {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 20px;
             height: 60px;
             position: relative;
@@ -55,49 +56,39 @@
             border: none;
             cursor: pointer;
             font-weight: bold;
-            transition: transform 0.1s;
+            min-width: 100px;
         }
 
         #yesBtn {
             background-color: #ff2d55;
             color: white;
+            z-index: 11;
         }
 
         #noBtn {
             background-color: #e0e0e0;
             color: #666;
-            position: absolute;
-            left: 55%;
-        }
-
-        .subtext {
-            margin-top: 25px;
-            font-size: 0.85rem;
-            color: #888;
-            font-style: italic;
+            transition: none; /* Instant jump */
         }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <span class="icon">🐱</span>
+        <span class="icon">🐶</span>
         <h1 id="question">Denissa, will you be my valentine?</h1>
         
         <div class="btn-container">
             <button id="yesBtn" onclick="celebrate()">Yes</button>
             <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
         </div>
-
-        <p id="small-talk" class="subtext">"No" seems a bit shy 😈</p>
     </div>
 
     <script>
         function moveButton() {
             const btn = document.getElementById('noBtn');
             
-            // Generate random coordinates
-            // Subtracting button width/height so it stays on screen
+            // Randomly move the "No" button anywhere on the screen
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight);
             
@@ -107,35 +98,35 @@
         }
 
         function celebrate() {
-            // 1. Change the text and icon
-            document.getElementById('question').innerText = "Yay! Best decision ever! ❤️";
+            document.getElementById('question').innerText = "Yay! See you on the 14th! ❤️";
             document.querySelector('.icon').innerText = "💖";
-            
-            // 2. Hide the buttons and subtext
             document.querySelector('.btn-container').style.display = 'none';
-            document.getElementById('small-talk').style.display = 'none';
 
-            // 3. Trigger Confetti!
+            // Trigger the confetti
             const duration = 5 * 1000;
             const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
-            function randomInRange(min, max) {
-              return Math.random() * (max - min) + min;
-            }
-
-            const interval = setInterval(function() {
+            (function frame() {
               const timeLeft = animationEnd - Date.now();
+              if (timeLeft <= 0) return;
 
-              if (timeLeft <= 0) {
-                return clearInterval(interval);
-              }
+              confetti({
+                particleCount: 3,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#ff2d55', '#ff99aa']
+              });
+              confetti({
+                particleCount: 3,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#ff2d55', '#ff99aa']
+              });
 
-              const particleCount = 50 * (timeLeft / duration);
-              // since particles fall down, start a bit higher than random
-              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-            }, 250);
+              requestAnimationFrame(frame);
+            }());
         }
     </script>
 </body>
