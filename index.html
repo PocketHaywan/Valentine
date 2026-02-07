@@ -1,133 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Denissa</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #fce4ec;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Denissa, Will You Be My Valentine? 💕</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9aa2, #ffb7b2, #ffdac1);
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
-        .card {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            z-index: 10;
-        }
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px 30px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .icon {
-            font-size: 60px;
-            margin-bottom: 10px;
-            display: block;
-        }
+    .cat {
+      font-size: 90px;
+      margin: 0 0 20px;
+      line-height: 1;
+    }
 
-        h1 {
-            color: #333;
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-        }
+    h1 {
+      font-size: 2.1rem;
+      margin: 0 0 30px;
+      color: #e63946;
+      font-weight: 700;
+    }
 
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            height: 60px;
-            position: relative;
-        }
+    .name {
+      font-size: 1.8rem;
+      color: #d00000;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
 
-        button {
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            min-width: 100px;
-        }
+    .buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
 
-        #yesBtn {
-            background-color: #ff2d55;
-            color: white;
-            z-index: 11;
-        }
+    button {
+      font-size: 1.3rem;
+      padding: 16px 40px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      min-width: 140px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
 
-        #noBtn {
-            background-color: #e0e0e0;
-            color: #666;
-            transition: none; /* Instant jump */
-        }
-    </style>
+    .yes {
+      background: #e63946;
+      color: white;
+    }
+
+    .yes:hover {
+      background: #d00000;
+      transform: scale(1.08);
+    }
+
+    .no {
+      background: #adb5bd;
+      color: white;
+    }
+
+    .no:hover {
+      background: #6c757d;
+      transform: scale(1.05);
+    }
+
+    .small-text {
+      margin-top: 30px;
+      font-size: 0.95rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 60px;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .heart1 { top: 20px; left: 30px; transform: rotate(-15deg); }
+    .heart2 { bottom: 40px; right: 40px; transform: rotate(20deg); }
+  </style>
 </head>
 <body>
 
-    <div class="card">
-        <span class="icon">🐶</span>
-        <h1 id="question">Denissa, will you be my valentine?</h1>
-        
-        <div class="btn-container">
-            <button id="yesBtn" onclick="celebrate()">Yes</button>
-            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
-        </div>
+  <div class="card">
+    <div class="cat">🐱💕</div>
+    
+    <div class="name">Denissa</div>
+    
+    <h1>will you be my Valentine?</h1>
+
+    <div class="buttons">
+      <button class="yes" onclick="alert('Yayyy! 💖 Thank you Denissa! 😻')">Yes</button>
+      <button class="no" onclick="alert('Oh no... 😢 Maybe next year? 🥺 (jk, say yes!)')">No</button>
     </div>
 
-    <script>
-        function moveButton() {
-            const btn = document.getElementById('noBtn');
-            
-            // Randomly move the "No" button anywhere on the screen
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            
-            btn.style.position = 'fixed';
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-        }
+    <p class="small-text">*No really means maybe... right? 😏</p>
 
-        function celebrate() {
-            document.getElementById('question').innerText = "Yay! See you on the 14th! ❤️";
-            document.querySelector('.icon').innerText = "💖";
-            document.querySelector('.btn-container').style.display = 'none';
+    <div class="heart heart1">❤️</div>
+    <div class="heart heart2">💘</div>
+  </div>
 
-            // Trigger the confetti
-            const duration = 5 * 1000;
-            const animationEnd = Date.now() + duration;
-
-            (function frame() {
-              const timeLeft = animationEnd - Date.now();
-              if (timeLeft <= 0) return;
-
-              confetti({
-                particleCount: 3,
-                angle: 60,
-                spread: 55,
-                origin: { x: 0 },
-                colors: ['#ff2d55', '#ff99aa']
-              });
-              confetti({
-                particleCount: 3,
-                angle: 120,
-                spread: 55,
-                origin: { x: 1 },
-                colors: ['#ff2d55', '#ff99aa']
-              });
-
-              requestAnimationFrame(frame);
-            }());
-        }
-    </script>
 </body>
 </html>
