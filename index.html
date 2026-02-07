@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Denissa</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fce4ec;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* Prevents scrollbars when button moves */
+        }
+
+        .card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            z-index: 10;
+        }
+
+        .icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 60px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.1s;
+        }
+
+        #yesBtn {
+            background-color: #ff2d55;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #e0e0e0;
+            color: #666;
+            position: absolute;
+            left: 55%;
+        }
+
+        .subtext {
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <span class="icon">🐱</span>
+        <h1 id="question">Denissa, will you be my valentine?</h1>
+        
+        <div class="btn-container">
+            <button id="yesBtn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+        </div>
+
+        <p id="small-talk" class="subtext">"No" seems a bit shy 😈</p>
+    </div>
+
+    <script>
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            
+            // Generate random coordinates
+            // Subtracting button width/height so it stays on screen
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function celebrate() {
+            // 1. Change the text and icon
+            document.getElementById('question').innerText = "Yay! Best decision ever! ❤️";
+            document.querySelector('.icon').innerText = "💖";
+            
+            // 2. Hide the buttons and subtext
+            document.querySelector('.btn-container').style.display = 'none';
+            document.getElementById('small-talk').style.display = 'none';
+
+            // 3. Trigger Confetti!
+            const duration = 5 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+              return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+              const timeLeft = animationEnd - Date.now();
+
+              if (timeLeft <= 0) {
+                return clearInterval(interval);
+              }
+
+              const particleCount = 50 * (timeLeft / duration);
+              // since particles fall down, start a bit higher than random
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
